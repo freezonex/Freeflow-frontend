@@ -1,0 +1,42 @@
+{
+  "name": "supcon_ems_demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@carbon/charts-react": "^1.16.1",
+    "@carbon/colors": "^11.24.0",
+    "@carbon/react": "^1.33.0",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/lang-xml": "^6.1.0",
+    "@copilotkit/backend": "^0.37.0",
+    "@copilotkit/react-core": "^0.37.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@uiw/react-codemirror": "^4.23.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "d3": "^7.9.0",
+    "d3-cloud": "^1.2.7",
+    "d3-sankey": "^0.12.3",
+    "lucide-react": "^0.379.0",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "sass": "^1.63.6",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
