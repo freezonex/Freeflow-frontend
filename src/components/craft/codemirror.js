@@ -163,6 +163,12 @@ const CodeEditorWithPreview = ({
       }
     }
   };
+  const svg = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="92px" height="92px" viewBox="0 0 92 92" enable-background="new 0 0 92 92" xml:space="preserve">
+<path id="XMLID_32_" d="M46,53c-1.8,0-3.7-0.8-5-2.1c-1.3-1.3-2-3.1-2-4.9c0-1.8,0.8-3.6,2-5c1.3-1.3,3.1-2,5-2c1.8,0,3.6,0.8,4.9,2
+	c1.3,1.3,2.1,3.1,2.1,5c0,1.8-0.8,3.6-2.1,4.9C49.6,52.2,47.8,53,46,53z"/>
+</svg>`;
+  const base64SVG = btoa(svg);
 
   return (
     <div>
@@ -170,6 +176,10 @@ const CodeEditorWithPreview = ({
         id="preview"
         ref={previewRef}
         class="dot-pattern"
+        style={{
+          backgroundImage: `url('data:image/svg+xml;base64,${base64SVG}')`,
+          backgroundSize: '10px 10px',
+        }}
         // className="w-full aspect-square max-h-[85vh] bg-[#F4F4F4] bg-dot-pattern bg-dot p-3"
       >
         {/* {previewError ? (
