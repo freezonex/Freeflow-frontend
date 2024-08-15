@@ -140,8 +140,8 @@ const CodeEditorWithPreview = ({
 
   const updateTooltipPosition = (event) => {
     if (tooltip && tooltip.style.display === 'block') {
-      tooltip.style.left = `${event.clientX + 10}px`;
-      tooltip.style.top = `${event.clientY + 10}px`;
+      tooltip.style.left = `${event.pageX + 10}px`;
+      tooltip.style.top = `${event.pageY + 10}px`;
     }
   };
   const bindClicks = () => {
