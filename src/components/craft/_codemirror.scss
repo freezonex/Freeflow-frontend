@@ -2,3 +2,13 @@
 .ͼ1f .cm-scroller {
   display: none;
 }
+
+.dot-pattern {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 85vh;
+  background-color: #f4f4f4;
+  padding: 0.75rem;
+  background-image: radial-gradient(circle, #ccc 0.5px, transparent 0.5px);
+  background-size: 10px 10px;
+}

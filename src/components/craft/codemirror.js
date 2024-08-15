@@ -4,6 +4,7 @@ import { xml } from '@codemirror/lang-xml';
 import { javascript } from '@codemirror/lang-javascript';
 import { html } from '@codemirror/lang-html';
 import { EditorView, ViewUpdate, Decoration } from '@codemirror/view';
+import './_codemirror.scss';
 
 const CodeEditorWithPreview = ({
   code,
@@ -168,7 +169,8 @@ const CodeEditorWithPreview = ({
       <div
         id="preview"
         ref={previewRef}
-        className="w-full aspect-square max-h-[85vh] bg-[#F4F4F4] bg-dot-pattern bg-dot p-3"
+        class="dot-pattern"
+        // className="w-full aspect-square max-h-[85vh] bg-[#F4F4F4] bg-dot-pattern bg-dot p-3"
       >
         {/* {previewError ? (
           <pre>Error: {previewError}</pre>
