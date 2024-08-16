@@ -24,7 +24,7 @@ import { CopilotTask, useCopilotContext } from '@copilotkit/react-core';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import CodeEditor from '@/components/craft/codemirror';
-import LoadingSpinner from './loadingSpinner';
+import { LoadingSpinner, CloseIcon } from './assets';
 import { TextInput, TextArea, Heading } from '@carbon/react';
 
 const defualtUI = [
@@ -65,20 +65,31 @@ const defualtUI = [
 </html>`,
 ];
 export default function Board() {
-  const [code, setCode] = useState(defualtUI);
-  const [codeToDisplay, setCodeToDisplay] = useState(code[0] || '');
+  const initialCode = () => {
+    const savedCode = localStorage.getItem('code');
+    return savedCode ? JSON.parse(savedCode) : [defualtUI];
+  };
+
+  const [code, setCode] = useState(initialCode);
+  const [codeToDisplay, setCodeToDisplay] = useState(code[length - 1] || '');
   const [showDialog, setShowDialog] = useState(false);
-  const [codeCommand, setCodeCommand] = useState('');
+  const [codeCommand, setCodeCommand] = useState({
+    databaseName: '',
+    databaseConnect: '',
+    databaseStructure: '',
+    prompt: '',
+  });
+
   const [tuneCommand, setTuneCommand] = useState('');
   const [componentIds, setComponentIds] = useState([]);
 
   const [fileName, setFileName] = useState('');
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(code?.length - 1);
   const [showTuneDialog, setShowTuneDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const prePrompt = String.raw`#prompt
+  const generatedPrompt = String.raw`#prompt
 请生成一个html包含下面所有的客户需求，注意一定要单一html文件完成需求，所有样式文件只能以cdn的方式引入，要完整完成需求。注意，先查询我表中所有的字段，再对字段进行分析。针对已有字段和新需求进行匹配，实现新需求的开发。
 注意下列事项
 1 严格遵守给你的schema，插入数据库时，严格遵守数据库字段。与数据库字段保持完全一致！不允许插入未知字段.对数据库修改时候不允许嵌套json，直接使用重复插入。
@@ -141,24 +152,30 @@ export default function Board() {
 8 严格参考我写明的数据库链接方式，这是与数据库沟通的唯一手段，html前端页面将直接与数据库交互
 
 #写明数据库连接方式
-curl --location --request GET 'http://192.168.31.75:8000/rest/v1/{tableName}' \
---header 'apikey: {API Key}'
+${codeCommand.databaseConnect}
 
-curl -X POST 'http://192.168.31.75:8000/rest/v1/{tableName}' \
--H "apikey: {API Key}" \
--H "Content-Type: application/json" \
--d '[{ "some_column": "someValue" }, { "other_column": "otherValue" }]'
+#表结构如下
+${codeCommand.databaseStructure}
+#写明数据库表名
+${codeCommand.databaseName}
 
-curl --location --request DELETE 'http://192.168.31.75:8000/rest/v1/{tableName}?id=eq.1' \
---header 'apikey: {API Key}' \
+如果没有写明数据库表名， 表结构，连接方式， 只需要考虑如下ui需求即可。
+
+#写明需求
+${codeCommand.prompt}
+
 `;
   useEffect(() => {
     if (code.length > 0) {
       setSelectedIndex(code.length - 1);
+      setCodeToDisplay(code[code.length - 1]);
     }
   }, [code]);
+  useEffect(() => {
+    localStorage.setItem('code', JSON.stringify(code));
+  }, [code]);
   const generateCode = new CopilotTask({
-    instructions: prePrompt + codeCommand,
+    instructions: generatedPrompt,
     actions: [
       {
         name: 'generateCode',
@@ -250,17 +267,61 @@ curl --location --request DELETE 'http://192.168.31.75:8000/rest/v1/{tableName}?
     <>
       <div>
         <Header openCode={() => setShowDialog(true)} />
-        <div className="absolute right-0 left-[16rem] p-2 pl-4 pr-[2rem] min-h-[90vh] flex justify-between gap-x-1 bg-white  ">
+        <div className="absolute right-0 left-[16rem] p-2 pl-4 pr-[2rem] min-h-[90vh] flex justify-between gap-x-1 bg-white ">
           <Sidebar>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Heading className="text-[14px] font-semibold leading-[14px] text-left">
-                Discription
+                Database Name
+              </Heading>
+              <Input
+                className="bg-[#F4F4F4] border-0 border-b rounded-[3px]"
+                placeholder="Enter database name"
+                value={codeCommand.databaseName}
+                onChange={(e) =>
+                  setCodeCommand({
+                    ...codeCommand,
+                    databaseName: e.target.value,
+                  })
+                }
+              />
+              <Heading className="text-[14px] font-semibold leading-[14px] text-left">
+                Database Connect
+              </Heading>
+              <Textarea
+                className="h-30 bg-[#F4F4F4] border-0 border-b rounded-[3px]"
+                placeholder="Enter your code command"
+                value={codeCommand.databaseConnect}
+                onChange={(e) =>
+                  setCodeCommand({
+                    ...codeCommand,
+                    databaseConnect: e.target.value,
+                  })
+                }
+              />
+              <Heading className="text-[14px] font-semibold leading-[14px] text-left">
+                Database Structure
+              </Heading>
+              <Textarea
+                className="h-30 bg-[#F4F4F4] border-0 border-b rounded-[3px]"
+                placeholder="Enter your code command"
+                value={codeCommand.databaseStructure}
+                onChange={(e) =>
+                  setCodeCommand({
+                    ...codeCommand,
+                    databaseStructure: e.target.value,
+                  })
+                }
+              />
+              <Heading className="text-[14px] font-semibold leading-[14px] text-left">
+                Prompt
               </Heading>
               <Textarea
                 className="h-40 bg-[#F4F4F4] border-0 border-b rounded-[3px]"
                 placeholder="Enter your code command"
-                value={codeCommand}
-                onChange={(e) => setCodeCommand(e.target.value)}
+                value={codeCommand.prompt}
+                onChange={(e) =>
+                  setCodeCommand({ ...codeCommand, prompt: e.target.value })
+                }
               />
               <Button
                 className="w-full bg-[#C7F564] rounded-[3px] font-semibold hover:bg-[#8bbc02]"
@@ -282,13 +343,27 @@ curl --location --request DELETE 'http://192.168.31.75:8000/rest/v1/{tableName}?
                     {code.map((c, i) => (
                       <TableRow key={i}>
                         <TableCell
-                          className="font-medium p-2 border-b border-solid "
+                          className={`font-medium p-2 border-b border-solid cursor-pointer hover:bg-[#cdced0] ${
+                            selectedIndex === i
+                              ? 'bg-[#acaeb1] text-white fill-white'
+                              : 'bg-inherit'
+                          }`}
                           onClick={() => {
                             setSelectedIndex(i);
                             setCodeToDisplay(c);
                           }}
                         >
-                          v1.0.0-beta.{i}
+                          <div className="flex justify-between items-baseline">
+                            <span>v1.0.0-beta.{i}</span>
+                            <div
+                              className="h-[15px] w-[15px] hover:bg-[#EDF9CC]"
+                              onClick={() => {
+                                setCode(code.filter((_, index) => index !== i));
+                              }}
+                            >
+                              <CloseIcon />
+                            </div>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -362,9 +437,12 @@ curl --location --request DELETE 'http://192.168.31.75:8000/rest/v1/{tableName}?
               You can use the following code to start integrating into your
               application.
             </DialogDescription>
-            <textarea className="p-4 bg-black text-white rounded bg-primary my-2 h-64 overflow-y-auto overflow-x-hidden max-w-inherit">
+            <Textarea
+              className="p-4 rounded bg-black text-white my-2 h-64 overflow-y-auto overflow-x-hidden max-w-inherit"
+              style={{ fontFamily: 'Fira Code, Consolas, monospace' }}
+            >
               {codeToDisplay}
-            </textarea>
+            </Textarea>
           </DialogHeader>
           <Button
             className="w-full bg-[#C7F564] rounded-[3px] font-semibold hover:bg-[#8bbc02]"

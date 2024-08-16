@@ -60,7 +60,7 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
       <HeaderName
         prefix="FreezoneX"
         onClick={() => {
-          router.push(`${process.env.PATH_PREFIX}/dashboard`);
+          router.push(`/`);
         }}
         className="cursor-pointer border-b-[1px] border-solid border-[#94C518]"
       >
@@ -84,7 +84,12 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
               <SideNavMenuItem href="https://www.ibm.com" target="_blank">
                 Broker
               </SideNavMenuItem>
-              <SideNavMenuItem href="https://www.ibm.com" target="_blank">
+              <SideNavMenuItem
+                onClick={() => {
+                  router.push('/uns/browser');
+                }}
+                isActive={isCurrentPath('/uns/browser')}
+              >
                 Browser
               </SideNavMenuItem>
             </SideNavMenu>

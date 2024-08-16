@@ -3,7 +3,7 @@ import { Heading } from '@carbon/react';
 
 const Header = ({ openCode }) => {
   return (
-    <div className="w-full h-15 flex justify-between items-center mb-8">
+    <div className="w-full h-15 flex justify-between items-center mb-8 ">
       <Heading className="text-[28px] font-medium">Frontend Generation</Heading>
       <div className="flex gap-x-2">
         <Button

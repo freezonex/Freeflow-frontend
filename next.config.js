@@ -12,6 +12,14 @@ const nextConfig = {
     // Important: return the modified config
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: '/mqttapi/:slug*',
+        destination: 'http://supcononenorth.fortiddns.com:18083/api/v5/:slug*',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
