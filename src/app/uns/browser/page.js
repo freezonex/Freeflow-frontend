@@ -7,7 +7,7 @@ import { CaretDown, ArrowDownRight } from '@carbon/icons-react';
 import { fetchMqttTopics } from '@/actions/actions';
 
 export default function Home() {
-  const searchParams = useSearchParams();
+  //   const searchParams = useSearchParams();
   const [allTopics, setAllTopics] = useState([]);
   const [topic, setTopic] = useState('#');
   const [incommingMessages, setIncommingMessages] = useState([]);

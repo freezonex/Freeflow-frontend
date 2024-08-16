@@ -66,12 +66,22 @@ const defualtUI = [
 ];
 export default function Board() {
   const initialCode = () => {
-    const savedCode = localStorage.getItem('code');
-    return savedCode ? JSON.parse(savedCode) : [defualtUI];
+    if (typeof window !== 'undefined') {
+      const savedCode = localStorage.getItem('code');
+      return savedCode ? JSON.parse(savedCode) : [defualtUI];
+    }
+    return [defualtUI];
   };
-
+  useEffect(() => {
+    const savedCode = localStorage.getItem('code');
+    if (savedCode) {
+      setCode(JSON.parse(savedCode));
+    }
+  }, []);
   const [code, setCode] = useState(initialCode);
-  const [codeToDisplay, setCodeToDisplay] = useState(code[length - 1] || '');
+  const [codeToDisplay, setCodeToDisplay] = useState(
+    code[code.length - 1] || ''
+  );
   const [showDialog, setShowDialog] = useState(false);
   const [codeCommand, setCodeCommand] = useState({
     databaseName: '',
@@ -262,7 +272,6 @@ ${codeCommand.prompt}
       console.error('Failed:', error);
     }
   };
-  console.log(isLoading);
   return (
     <>
       <div>
