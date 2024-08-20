@@ -16,10 +16,13 @@
 }
 
 .cds--white,
-.cds--g90 {
+.cds--g90,
+.cds--g10 {
   --cds-border-interactive: #94c518;
   --cds-focus: #94c518;
   --cds-button-primary-cunstom: #c7f564;
+  --cds-interactive: #94c518;
+  --cds-link-primary: #59770f;
 }
 // body {
 //   color: rgb(var(--foreground-rgb));

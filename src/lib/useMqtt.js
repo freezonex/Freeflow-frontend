@@ -1,18 +1,12 @@
 import MQTT from 'mqtt';
 import { useEffect, useRef } from 'react';
 
-function useMqtt({
-  uri,
-  options = {},
-  topicHandlers = [{ topic: '', handler: ({ topic, payload, packet }) => {} }],
-  onConnectedHandler = (client) => {},
-}) {
+function useMqtt({ uri, options = {}, onConnectedHandler = (client) => {} }) {
   const clientRef = useRef(null);
 
   useEffect(() => {
     console.log(clientRef.current);
-    // if (clientRef.current) return;
-    if (!topicHandlers || topicHandlers.length === 0) return () => {};
+    if (clientRef.current) return;
 
     try {
       console.log('connect mqtt');
@@ -26,20 +20,6 @@ function useMqtt({
 
     const client = clientRef.current;
     console.log('client', client);
-    topicHandlers.forEach((th) => {
-      client?.subscribe(th.topic);
-      console.log('subscribed to', th.topic);
-    });
-    client?.on('message', (topic, rawPayload, packet) => {
-      const th = topicHandlers.find((t) => t.topic === topic);
-      let payload;
-      try {
-        payload = JSON.parse(rawPayload);
-      } catch {
-        payload = rawPayload;
-      }
-      if (th) th.handler({ topic, payload, packet });
-    });
 
     client?.on('connect', () => {
       console.log('connecting... to', uri);
@@ -52,10 +32,8 @@ function useMqtt({
 
     return () => {
       if (client) {
-        topicHandlers.forEach((th) => {
-          client.unsubscribe(th.topic);
-        });
         client.end();
+        clientRef.current = null;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
