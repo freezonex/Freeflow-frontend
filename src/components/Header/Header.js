@@ -85,7 +85,7 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
             >
               Connect
             </SideNavLink>
-            <SideNavMenu
+            {/* <SideNavMenu
               renderIcon={ConnectTarget}
               title="Connect"
               onClick={() => {
@@ -95,7 +95,7 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
               <SideNavMenuItem href="https://www.ibm.com" target="_blank">
                 Node1
               </SideNavMenuItem>
-            </SideNavMenu>
+            </SideNavMenu> */}
             <SideNavMenu renderIcon={Platforms} title="UNS">
               <SideNavMenuItem href="https://www.ibm.com" target="_blank">
                 Broker
