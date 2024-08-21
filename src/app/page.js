@@ -3,15 +3,6 @@ import React from 'react';
 import { Heading, Link } from '@carbon/react';
 import { useRouter } from 'next/navigation';
 import { VideoPlayer, Play, Book } from '@carbon/icons-react';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 export default function Home() {
@@ -94,7 +85,7 @@ export default function Home() {
           <Heading className="text-[14px] mt-2">
             You can also check here.
           </Heading>
-          <ScrollArea className="h-[200px] w-48 rounded-md border">
+          <ScrollArea className="h-[400px] w-48 rounded-md border mt-2">
             <div className="p-4">
               {tags.map((tag) => (
                 <>

@@ -42,13 +42,24 @@ export default function Board() {
   });
 
   useEffect(() => {
-    fetchMqttTopics().then((res) => {
-      const topics = res.data.map((item) => item.topic);
-      setAllTopics(topics);
-      const nodes = convertTopicsToTreeNodes(topics);
+    if (typeof window !== 'undefined' && localStorage.getItem('topics')) {
+      const trackedTopics = localStorage.getItem('topics');
+      setAllTopics(JSON.parse(trackedTopics));
+      const nodes = convertTopicsToTreeNodes(JSON.parse(trackedTopics));
       setTreeNodes(nodes);
-    });
+      setSelectedTopic(JSON.parse(trackedTopics)[0]);
+    } else {
+      fetchMqttTopics().then((res) => {
+        const topics = res.data.map((item) => item.topic);
+        setAllTopics(topics);
+        localStorage.setItem('topics', JSON.stringify(topics));
+        const nodes = convertTopicsToTreeNodes(topics);
+        setTreeNodes(nodes);
+        setSelectedTopic(topics[0]);
+      });
+    }
   }, []);
+
   useEffect(() => {
     const nodes = convertTopicsToTreeNodes(allTopics);
     setTreeNodes(nodes);
@@ -141,6 +152,17 @@ export default function Board() {
   };
   console.log('selectedTopic', selectedTopic);
 
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(selectedTopic);
+      console.log('Topic copied to clipboard');
+      // Optionally, you can show a success message to the user
+      // For example, using a toast notification
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      // Optionally, you can show an error message to the user
+    }
+  };
   return (
     <>
       <Header></Header>
@@ -153,12 +175,12 @@ export default function Board() {
             </div>
             <div className="flex gap-2 items-center">
               <Button
-                className="bg-[#A7E102] h-[30px] w-[100px] rounded-[3px]"
+                className="bg-[#A7E102] h-[30px] w-[100px] rounded-[3px] hover:bg-[#8bbc02]"
                 onClick={() => setShowDialog(true)}
               >
                 Add
               </Button>
-              <Button className="bg-[#393939] h-[30px] w-[100px] rounded-[3px] text-white">
+              <Button className="bg-[#393939] h-[30px] w-[100px] rounded-[3px] text-white hover:bg-[#585c62]">
                 Select
               </Button>
             </div>
@@ -180,11 +202,21 @@ export default function Board() {
               </Breadcrumb>
               <div className="flex gap-2 items-center">
                 <Heading> Topic </Heading>
-                <Copy />
+                <Copy onClick={copyToClipboard} style={{ cursor: 'pointer' }} />
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              <Button className="bg-[#393939] h-[30px] w-[100px] rounded-[3px] text-white">
+              <Button
+                className="bg-[#393939] h-[30px] w-[100px] rounded-[3px] text-white hover:bg-[#585c62]"
+                onClick={() => {
+                  const newTopics = allTopics.filter(
+                    (topic) => topic !== selectedTopic
+                  );
+                  setAllTopics(newTopics);
+                  localStorage.setItem('topics', JSON.stringify(newTopics));
+                  setSelectedTopic(newTopics[0]);
+                }}
+              >
                 Remove
               </Button>
             </div>
@@ -213,6 +245,10 @@ export default function Board() {
             className="w-full bg-[#C7F564] rounded-[3px] font-semibold hover:bg-[#8bbc02]"
             onClick={() => {
               setAllTopics([...allTopics, addTopic]);
+              localStorage.setItem(
+                'topics',
+                JSON.stringify([...allTopics, addTopic])
+              );
               setShowDialog(false);
             }}
           >
