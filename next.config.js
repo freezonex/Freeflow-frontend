@@ -18,6 +18,10 @@ const nextConfig = {
         source: '/mqttapi/:slug*',
         destination: 'http://supcononenorth.fortiddns.com:18083/api/v5/:slug*',
       },
+      {
+        source: '/backendapi/:slug*',
+        destination: 'http://supcononenorth.fortiddns.com:31585/:slug*',
+      },
     ];
   },
 };

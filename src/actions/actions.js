@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { httpToMqtt } from '../utils/http';
+import { httpToMqtt, httpToBackend } from '../utils/http';
 
 export async function fetchMqttTopics() {
   return httpToMqtt
@@ -16,4 +16,52 @@ export async function fetchMqttTopics() {
       console.log(res);
       return res.data;
     });
+}
+
+export async function fetchAllNodeRed() {
+  const params = {
+    tenant_name: 'dt',
+    component_name: 'nodered',
+  };
+  return httpToBackend
+    .get('/tenant/component/get', { params: params })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}
+
+export async function fetchNodeRedByName(name) {
+  const params = {
+    tenant_name: 'dt',
+    component_name: name,
+  };
+  return httpToBackend
+    .get('/tenant/component/get', { params: params })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}
+
+export async function addNodeRed() {
+  const body = {
+    tenant_name: 'dt',
+    component_name: 'nodered',
+  };
+  return httpToBackend.post('/tenant/component/add', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}
+
+export async function deleteNodeRed(noderedName) {
+  const body = {
+    tenant_name: 'dt',
+    component_name: noderedName,
+  };
+  return httpToBackend.post('/tenant/component/delete', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
 }

@@ -75,7 +75,23 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
           onOverlayClick={() => {}}
         >
           <SideNavItems isSideNavExpanded={isExpanded}>
-            <SideNavMenu renderIcon={ConnectTarget} title="Connect">
+            <SideNavLink
+              renderIcon={ConnectTarget}
+              title="Connect"
+              onClick={() => {
+                router.push('/connect');
+              }}
+              isActive={isCurrentPath('/connect')}
+            >
+              Connect
+            </SideNavLink>
+            <SideNavMenu
+              renderIcon={ConnectTarget}
+              title="Connect"
+              onClick={() => {
+                router.push('/connect');
+              }}
+            >
               <SideNavMenuItem href="https://www.ibm.com" target="_blank">
                 Node1
               </SideNavMenuItem>
