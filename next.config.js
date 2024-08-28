@@ -20,7 +20,7 @@ const nextConfig = {
       },
       {
         source: '/backendapi/:slug*',
-        destination: 'http://supcononenorth.fortiddns.com:31585/:slug*',
+        destination: 'http://openiiot-server-service:8085/:slug*',
       },
     ];
   },
