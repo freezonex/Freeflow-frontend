@@ -16,8 +16,9 @@ const nextConfig = {
     return [
       {
         source: '/mqttapi/:slug*',
-        destination:
-          'http://openiiot-emqx-service.openiiot-dt:18083/api/v5/:slug*',
+        destination: 'http://supcononenorth.fortiddns.com:18083/api/v5/:slug*',
+        // destination:
+        //   'http://openiiot-emqx-service.openiiot-dt:18083/api/v5/:slug*',
       },
       {
         source: '/backendapi/:slug*',

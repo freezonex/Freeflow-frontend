@@ -5,8 +5,10 @@ export async function fetchMqttTopics() {
   return httpToMqtt
     .get('/topics', {
       auth: {
+        // username: 'b10b96e9d6812ea0',
+        // password: 'KTiO9BpJ9BLrJA6mfaQzEkWOp59Bpt9AI9CxLhKhzPpd64fI',
         username: 'b10b96e9d6812ea0',
-        password: 'KTiO9BpJ9BLrJA6mfaQzEkWOp59Bpt9AI9CxLhKhzPpd64fI',
+        password: 'C9Bvjura7Y2T0GWYYugana7lNDbkb8Ib38lN62yrhuqB',
       },
       headers: {
         'Content-Type': 'application/json',

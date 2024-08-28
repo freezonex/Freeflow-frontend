@@ -34,7 +34,8 @@ export default function Board() {
     console.log(client, client.connected);
   }, []);
   useMqtt({
-    uri: 'ws://openiiot-emqx-service.openiiot-dt:8083/mqtt',
+    uri: 'ws://supcononenorth.fortiddns.com:8083/mqtt',
+    // uri: 'ws://openiiot-emqx-service.openiiot-dt:8083/mqtt',
     options: {
       clientId: 'client1',
     },
