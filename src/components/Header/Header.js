@@ -97,7 +97,12 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
               </SideNavMenuItem>
             </SideNavMenu> */}
             <SideNavMenu renderIcon={Platforms} title="UNS">
-              <SideNavMenuItem href="https://www.ibm.com" target="_blank">
+              <SideNavMenuItem
+                onClick={() => {
+                  router.push('/uns/broker');
+                }}
+                isActive={isCurrentPath('/uns/broker')}
+              >
                 Broker
               </SideNavMenuItem>
               <SideNavMenuItem
@@ -110,7 +115,12 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
               </SideNavMenuItem>
             </SideNavMenu>
             <SideNavMenu renderIcon={BuildTool} title="App Builder">
-              <SideNavMenuItem href="https://www.ibm.com" target="_blank">
+              <SideNavMenuItem
+                onClick={() => {
+                  router.push('/builder/iiotapp');
+                }}
+                isActive={isCurrentPath('/builder/iiotapp')}
+              >
                 IIoT App
               </SideNavMenuItem>
               <SideNavMenuItem

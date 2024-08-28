@@ -5,7 +5,6 @@ import { fetchNodeRedByName } from '@/actions/actions';
 
 function Page({ params }) {
   const router = useRouter();
-  const baseURL = 'http://supcononenorth.fortiddns.com:31024';
   const name = params.name;
   const [nodeRed, setNodeRed] = useState({});
 
@@ -29,7 +28,7 @@ function Page({ params }) {
       }}
     >
       <iframe
-        src={`${baseURL}${nodeRed.uri}`}
+        src={`${nodeRed.uri}`}
         className="absolute top-0 left-0 w-full h-full min-h-[95vh]"
         //   className="w-full h-full min-h-[95vh] m-[-2rem] "
       />
