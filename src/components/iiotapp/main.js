@@ -2,33 +2,32 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 import Header from './header';
-import { Card, PlusCard } from './card';
-import { fetchAllNodeRed, addNodeRed, deleteNodeRed } from '@/actions/actions';
+import { PlusCard } from '../connect/card';
+import Card from './card';
+import { fetchAllGrafana, addGrafana, deleteGrafana } from '@/actions/actions';
 import { Search, ComboBox } from '@carbon/react';
 import { Filter } from '@carbon/icons-react';
 
 export default function Board() {
-  const [allNodeRed, setAllNodeRed] = useState([]);
+  const [allGrafana, setAllGrafana] = useState([]);
   const [refresh, setRefresh] = useState({});
   useEffect(() => {
-    fetchAllNodeRed().then((res) => {
-      setAllNodeRed(res.data);
+    fetchAllGrafana().then((res) => {
+      setAllGrafana(res.data);
     });
   }, [refresh]);
-  console.log('allnodered', allNodeRed);
+  console.log('allGrafana', allGrafana);
 
-  function addNodeRedHandler() {
-    console.log('addNodeRedHandler');
-    addNodeRed().then((res) => {
-      fetchAllNodeRed().then((res) => {
-        setAllNodeRed(res.data);
+  function addGrafanaHandler() {
+    addGrafana().then((res) => {
+      fetchAllGrafana().then((res) => {
+        setAllGrafana(res.data);
       });
     });
   }
 
-  function deleteNodeRedHandler(noderedName) {
-    console.log('deleteNodeRedHandler');
-    deleteNodeRed(noderedName).then((res) => {
+  function deleteGrafanaHandler(grafanaName) {
+    deleteGrafana(grafanaName).then((res) => {
       setRefresh({});
     });
   }
@@ -59,11 +58,11 @@ export default function Board() {
         </div>
       </div>
       <div className="flex flex-wrap gap-x-[2rem] gap-y-[2rem] bg-white p-[2rem]">
-        <PlusCard addComponentHandler={addNodeRedHandler} />
-        {allNodeRed.map((node) => (
+        <PlusCard addComponentHandler={addGrafanaHandler} />
+        {allGrafana.map((node) => (
           <Card
-            nodered={node}
-            deleteNodeRedHandler={deleteNodeRedHandler}
+            component={node}
+            deleteGrafanaHandler={deleteGrafanaHandler}
           ></Card>
         ))}
       </div>

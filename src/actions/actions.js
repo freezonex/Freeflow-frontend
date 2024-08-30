@@ -67,3 +67,51 @@ export async function deleteNodeRed(noderedName) {
     return res.data;
   });
 }
+
+export async function fetchAllGrafana() {
+  const params = {
+    tenant_name: 'dt',
+    component_name: 'grafana',
+  };
+  return httpToBackend
+    .get('/tenant/component/get', { params: params })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}
+
+export async function fetchGrafanaByName(name) {
+  const params = {
+    tenant_name: 'dt',
+    component_name: name,
+  };
+  return httpToBackend
+    .get('/tenant/component/get', { params: params })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}
+
+export async function addGrafana() {
+  const body = {
+    tenant_name: 'dt',
+    component_name: 'grafana',
+  };
+  return httpToBackend.post('/tenant/component/add', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}
+
+export async function deleteGrafana(grafanaName) {
+  const body = {
+    tenant_name: 'dt',
+    component_name: grafanaName,
+  };
+  return httpToBackend.post('/tenant/component/delete', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}
