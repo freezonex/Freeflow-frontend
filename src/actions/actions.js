@@ -6,7 +6,7 @@ export async function fetchMqttTopics() {
     .get('/topics', {
       auth: {
         //aws mqtt
-        username: 'b10b96e9d6812ea0',
+        username: 'freeflow',
         password: 'KTiO9BpJ9BLrJA6mfaQzEkWOp59Bpt9AI9CxLhKhzPpd64fI',
         //office mqtt
         // username: 'b10b96e9d6812ea0',
