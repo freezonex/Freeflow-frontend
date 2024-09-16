@@ -4,7 +4,12 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Header from './header';
 import { PlusCard } from '../connect/card';
 import Card from './card';
-import { fetchAllGrafana, addGrafana, deleteGrafana } from '@/actions/actions';
+import {
+  fetchAllGrafana,
+  addGrafana,
+  deleteGrafana,
+  updateComponentName,
+} from '@/actions/actions';
 import { Search, ComboBox } from '@carbon/react';
 import { Filter } from '@carbon/icons-react';
 
@@ -28,6 +33,11 @@ export default function Board() {
 
   function deleteGrafanaHandler(grafanaName) {
     deleteGrafana(grafanaName).then((res) => {
+      setRefresh({});
+    });
+  }
+  function renameGrafanaHandler(grafanaName, alias) {
+    updateComponentName(grafanaName, alias).then((res) => {
       setRefresh({});
     });
   }
@@ -63,6 +73,7 @@ export default function Board() {
           <Card
             component={node}
             deleteGrafanaHandler={deleteGrafanaHandler}
+            renameGrafanaHandler={renameGrafanaHandler}
           ></Card>
         ))}
       </div>

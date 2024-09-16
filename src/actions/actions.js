@@ -117,3 +117,15 @@ export async function deleteGrafana(grafanaName) {
     return res.data;
   });
 }
+
+export async function updateComponentName(componentName, alias) {
+  const body = {
+    tenant_name: 'dt',
+    component_name: componentName,
+    component_alias: alias,
+  };
+  return httpToBackend.post('/tenant/component/update', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}

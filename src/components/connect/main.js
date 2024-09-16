@@ -3,7 +3,12 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 
 import Header from './header';
 import { Card, PlusCard } from './card';
-import { fetchAllNodeRed, addNodeRed, deleteNodeRed } from '@/actions/actions';
+import {
+  fetchAllNodeRed,
+  addNodeRed,
+  deleteNodeRed,
+  updateComponentName,
+} from '@/actions/actions';
 import { Search, ComboBox } from '@carbon/react';
 import { Filter } from '@carbon/icons-react';
 
@@ -29,6 +34,13 @@ export default function Board() {
   function deleteNodeRedHandler(noderedName) {
     console.log('deleteNodeRedHandler');
     deleteNodeRed(noderedName).then((res) => {
+      setRefresh({});
+    });
+  }
+
+  function renameNodeRedHandler(noderedName, alias) {
+    console.log('renameNodeRedHandler');
+    updateComponentName(noderedName, alias).then((res) => {
       setRefresh({});
     });
   }
@@ -64,6 +76,7 @@ export default function Board() {
           <Card
             nodered={node}
             deleteNodeRedHandler={deleteNodeRedHandler}
+            renameNodeRedHandler={renameNodeRedHandler}
           ></Card>
         ))}
       </div>
