@@ -17,11 +17,12 @@ import { Button } from '@/components/ui/button';
 export function Card({ nodered, deleteNodeRedHandler, renameNodeRedHandler }) {
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
-  const [alias, setAlias] = useState('');
+  const [showDeleteConfirmDialog, setShowDeleteConfirmDialog] = useState(false);
+  const [alias, setAlias] = useState(nodered.alias);
   return (
     <div className="relative w-[198px] h-[198px] bg-[#f4f4f4] rounded-[3px] shadow-lg p-3  group cursor-pointer">
       <div>
-        <div className="flex justify-between items-center ml-2 mb-4">
+        <div className="flex justify-between items-center ml-2 mb-4 mr-4">
           <Heading className="text-[18px] ">{nodered.alias}</Heading>
           <Edit
             onClick={() => {
@@ -29,15 +30,20 @@ export function Card({ nodered, deleteNodeRedHandler, renameNodeRedHandler }) {
             }}
           />
         </div>
-        <ContentSvg
+        <div
           onClick={() => {
             router.push(`/connect/${nodered.name}`);
           }}
-        />
+        >
+          <ContentSvg />
+        </div>
       </div>
       <CloseFilled
-        className="absolute top-0 right-0 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-        onClick={() => deleteNodeRedHandler(nodered.name.split('-')[1])}
+        className="absolute top-[-4px] right-[-2px] cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+        onClick={() => {
+          setShowDeleteConfirmDialog(true);
+          //
+        }}
       />
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="bg-[#F4F4F4]">
@@ -61,6 +67,28 @@ export function Card({ nodered, deleteNodeRedHandler, renameNodeRedHandler }) {
             }}
           >
             Save
+          </Button>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={showDeleteConfirmDialog}
+        onOpenChange={setShowDeleteConfirmDialog}
+      >
+        <DialogContent className="bg-[#F4F4F4]">
+          <DialogHeader>
+            <Heading className="text-[20px] leading-[28px]">
+              Confirm To Delete
+            </Heading>
+          </DialogHeader>
+
+          <Button
+            className="w-full bg-[#C7F564] rounded-[3px] font-semibold hover:bg-[#8bbc02]"
+            onClick={() => {
+              deleteNodeRedHandler(nodered.name.split('-')[1]);
+              setShowDialog(false);
+            }}
+          >
+            Delete
           </Button>
         </DialogContent>
       </Dialog>
