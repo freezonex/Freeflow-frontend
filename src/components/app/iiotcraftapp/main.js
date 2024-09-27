@@ -30,29 +30,6 @@ export default function Board() {
   }, [refresh]);
   console.log('allApp', allApp);
 
-  //   function addNodeRedHandler() {
-  //     console.log('addNodeRedHandler');
-  //     addNodeRed().then((res) => {
-  //       fetchAllNodeRed().then((res) => {
-  //         setAllNodeRed(res.data);
-  //       });
-  //     });
-  //   }
-
-  //   function deleteNodeRedHandler(noderedName) {
-  //     console.log('deleteNodeRedHandler');
-  //     deleteNodeRed(noderedName).then((res) => {
-  //       setRefresh({});
-  //     });
-  //   }
-
-  //   function renameNodeRedHandler(noderedName, alias) {
-  //     console.log('renameNodeRedHandler');
-  //     updateComponentName(noderedName, alias).then((res) => {
-  //       setRefresh({});
-  //     });
-  //   }
-
   return (
     <>
       <Header></Header>

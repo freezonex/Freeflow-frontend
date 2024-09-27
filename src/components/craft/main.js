@@ -26,7 +26,6 @@ import { Textarea } from '@/components/ui/textarea';
 import CodeEditor from '@/components/craft/codemirror';
 import { LoadingSpinner, CloseIcon } from './assets';
 import { TextInput, TextArea, Heading } from '@carbon/react';
-import axios from 'axios';
 import { addApplication } from '@/actions/actions';
 
 const defualtUI = [
@@ -243,23 +242,7 @@ ${codeCommand.prompt}
     ],
   });
   const context = useCopilotContext();
-  // const SaveFile = async () => {
-  //   try {
-  //     const effectiveFileName = fileName.endsWith('.html')
-  //       ? fileName
-  //       : `${fileName}.html`;
 
-  //     const response = await axios.post('/api/savefile', {
-  //       fileName: effectiveFileName,
-  //       htmlContent: codeToDisplay,
-  //     });
-
-  //     console.log('savefile result:', response.data);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error('save failed:', error);
-  //   }
-  // };
   const confirmDeploy = async () => {
     try {
       // const saveResult = await SaveFile();
