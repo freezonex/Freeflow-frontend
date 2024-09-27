@@ -15,11 +15,6 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/copilotkit/openai',
-        destination: 'http://127.0.0.1/api/copilotkit/openai',
-      },
-
-      {
         source: '/mqttapi/:slug*',
         // destination: 'http://supcononenorth.fortiddns.com:18083/api/v5/:slug*',
         destination:
