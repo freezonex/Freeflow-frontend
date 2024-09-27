@@ -5,7 +5,7 @@ import Board from '@/components/craft/main';
 
 export default function Home() {
   return (
-    <CopilotKit runtimeUrl="/api/copilotkit/openai">
+    <CopilotKit runtimeUrl="/copilotkit/openai">
       <Board />
     </CopilotKit>
   );
