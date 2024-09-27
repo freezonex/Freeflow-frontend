@@ -22,8 +22,8 @@ const nextConfig = {
       },
       {
         source: '/backendapi/:slug*',
-        // destination: 'http://52.77.217.53/api/:slug*',
-        destination: 'http://openiiot-server-service:8085/:slug*',
+        destination: 'http://52.77.217.53/api/:slug*',
+        // destination: 'http://openiiot-server-service:8085/:slug*',
       },
     ];
   },

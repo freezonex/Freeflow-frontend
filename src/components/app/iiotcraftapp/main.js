@@ -139,7 +139,7 @@ export default function Board() {
                 Start
               </Button>
               <Button
-                className="bg-[#393939] rounded-[3px] h-[30px] text-white"
+                className="bg-[#525252] rounded-[3px] h-[30px] text-white"
                 onClick={() => {
                   stopApplication(selectedApp.name, 'frontend').then((res) => {
                     console.log('res', res);
