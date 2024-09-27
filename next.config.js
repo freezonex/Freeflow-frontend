@@ -16,7 +16,7 @@ const nextConfig = {
     return [
       {
         source: '/copilotkit/openai',
-        destination: '/api/copilotkit/openai',
+        destination: 'http://127.0.0.1/api/copilotkit/openai',
       },
 
       {
