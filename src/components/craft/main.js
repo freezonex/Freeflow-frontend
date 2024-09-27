@@ -26,6 +26,8 @@ import { Textarea } from '@/components/ui/textarea';
 import CodeEditor from '@/components/craft/codemirror';
 import { LoadingSpinner, CloseIcon } from './assets';
 import { TextInput, TextArea, Heading } from '@carbon/react';
+import axios from 'axios';
+import { addApplication } from '@/actions/actions';
 
 const defualtUI = [
   `<!DOCTYPE html>
@@ -241,35 +243,48 @@ ${codeCommand.prompt}
     ],
   });
   const context = useCopilotContext();
-  const ConfirmDeploy = async () => {
+  // const SaveFile = async () => {
+  //   try {
+  //     const effectiveFileName = fileName.endsWith('.html')
+  //       ? fileName
+  //       : `${fileName}.html`;
+
+  //     const response = await axios.post('/api/savefile', {
+  //       fileName: effectiveFileName,
+  //       htmlContent: codeToDisplay,
+  //     });
+
+  //     console.log('savefile result:', response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('save failed:', error);
+  //   }
+  // };
+  const confirmDeploy = async () => {
     try {
+      // const saveResult = await SaveFile();
+      // if (!saveResult) {
+      //   throw new Error('save failed');
+      // }
       const effectiveFileName = fileName.endsWith('.html')
         ? fileName
         : `${fileName}.html`;
-      // 构建带查询参数的URL
-      const url = new URL('http://192.168.31.75:8080/api/saveHtml');
-      url.searchParams.append('fileName', effectiveFileName); // 添加fileName作为查询参数
-      console.log(
-        typeof codeToDisplay,
-        JSON.stringify({ htmlData: codeToDisplay }),
-        { htmlData: codeToDisplay }
-      );
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: codeToDisplay,
-      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const file = new File([codeToDisplay], 'index.html');
+      console.log('Created File object:', file);
 
-      const textResult = await response.text();
-      console.log('Received text:', textResult);
+      // 读取文件内容以验证
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        console.log('File content:', e.target.result);
+      };
+      reader.readAsText(file);
+      const deployResult = await addApplication(fileName, 'frontend', file);
+      console.log('deploy result:', deployResult);
+      setShowDialog(false);
+      return deployResult;
     } catch (error) {
-      console.error('Failed:', error);
+      console.error('deploy failed:', error);
     }
   };
   return (
@@ -433,10 +448,10 @@ ${codeCommand.prompt}
       >
         <DialogContent className="bg-[#F4F4F4]">
           <DialogHeader>
-            <DialogTitle>Deploy Address</DialogTitle>
+            <DialogTitle>App Name</DialogTitle>
             <Input
               type="text"
-              placeholder="Enter file name"
+              placeholder="Enter app name"
               className="w-full p-3 rounded-[3px] border-0 outline-0 bg-white shadow "
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
@@ -455,7 +470,7 @@ ${codeCommand.prompt}
           </DialogHeader>
           <Button
             className="w-full bg-[#C7F564] rounded-[3px] font-semibold hover:bg-[#8bbc02]"
-            onClick={ConfirmDeploy}
+            onClick={confirmDeploy}
           >
             Confirm Deploy
           </Button>

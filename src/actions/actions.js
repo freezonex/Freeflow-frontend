@@ -129,3 +129,74 @@ export async function updateComponentName(componentName, alias) {
     return res.data;
   });
 }
+
+export async function fetchAllIIoTApp() {
+  const params = {
+    tenant_name: 'dt',
+  };
+  return httpToBackend
+    .get('/application/get', { params: params })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}
+
+export async function stopApplication(appName, appType) {
+  const body = {
+    tenant_name: 'dt',
+    application_name: appName,
+    application_type: appType,
+  };
+  return httpToBackend.post('/application/stop', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}
+
+export async function startApplication(appName, appType) {
+  const body = {
+    tenant_name: 'dt',
+    application_name: appName,
+    application_type: appType,
+  };
+  return httpToBackend.post('/application/start', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}
+
+export async function deleteApplication(appName, appType) {
+  const body = {
+    tenant_name: 'dt',
+    application_name: appName,
+    application_type: appType,
+  };
+  return httpToBackend.post('/application/delete', body).then((res) => {
+    console.log(res);
+    return res.data;
+  });
+}
+
+export async function addApplication(
+  applicationName,
+  componentType,
+  sourceFile
+) {
+  const formData = new FormData();
+  formData.append('tenant_name', 'dt');
+  formData.append('application_name', applicationName);
+  formData.append('component_type', componentType);
+  formData.append('source_file', sourceFile);
+
+  return httpToBackend
+    .post('/application/add', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}

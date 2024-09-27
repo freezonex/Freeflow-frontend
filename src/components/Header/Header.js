@@ -141,8 +141,21 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
               </SideNavMenuItem>
             </SideNavMenu>
             <SideNavMenu renderIcon={Application} title="App">
-              <SideNavMenuItem href="https://www.ibm.com" target="_blank">
-                App1
+              <SideNavMenuItem
+                onClick={() => {
+                  router.push('/app/iiotapp');
+                }}
+                isActive={isCurrentPath('/app/iiotapp')}
+              >
+                IIoT App
+              </SideNavMenuItem>
+              <SideNavMenuItem
+                onClick={() => {
+                  router.push('/app/iiotdashboard');
+                }}
+                isActive={isCurrentPath('/app/iiotdashboard')}
+              >
+                IIoT Dashboard
               </SideNavMenuItem>
             </SideNavMenu>
           </SideNavItems>
