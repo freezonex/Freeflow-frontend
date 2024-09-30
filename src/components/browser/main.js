@@ -35,7 +35,7 @@ export default function Board() {
   }, []);
   useMqtt({
     // uri: 'ws://supcononenorth.fortiddns.com:8083/mqtt',
-    uri: 'ws://openiiot-emqx-service.openiiot-dt:8083/mqtt',
+    uri: 'tcp://openiiot-emqx-service.openiiot-dt:1883/mqtt',
     options: {
       clientId: 'client1',
     },
