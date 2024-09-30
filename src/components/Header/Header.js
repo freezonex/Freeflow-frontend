@@ -47,7 +47,7 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
   };
 
   return (
-    <Header aria-label="FreezoneX FreeFlow">
+    <Header aria-label="FreezoneX supOS">
       <SkipToContent />
       <HeaderGlobalAction>
         <Connect
@@ -64,7 +64,7 @@ export const HeaderWSideNav = ({ isExpanded, toggleSideNavExpanded }) => {
         }}
         className="cursor-pointer border-b-[1px] border-solid border-[#94C518]"
       >
-        FreeFlow
+        supOS
       </HeaderName>
       <Theme theme={theme.sideNavTheme}>
         <SideNav
