@@ -35,7 +35,7 @@ export default function Board() {
   }, []);
   useMqtt({
     // uri: 'ws://supcononenorth.fortiddns.com:8083/mqtt',
-    uri: 'tcp://openiiot-emqx-service.openiiot-dt:1883/mqtt',
+    uri: 'mqtt://openiiot-emqx-service.openiiot-dt:1883/mqtt',
     options: {
       clientId: 'client1',
     },
@@ -238,7 +238,7 @@ export default function Board() {
           </DialogHeader>
           <Input
             className="bg-white border-0 border-b rounded-[3px]"
-            placeholder="Enter database name"
+            placeholder="Enter topic name"
             value={addTopic}
             onChange={(e) => setAddTopic(e.target.value)}
           />
