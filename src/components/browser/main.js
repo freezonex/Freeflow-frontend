@@ -35,7 +35,7 @@ export default function Board() {
   }, []);
   useMqtt({
     // uri: 'ws://supcononenorth.fortiddns.com:8083/mqtt',
-    uri: 'ws://52.77.217.53:30084/mqtt',
+    uri: 'ws://52.77.217.53:30885/mqtt',
     options: {
       clientId: 'client1',
     },
