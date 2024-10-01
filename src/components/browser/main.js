@@ -43,22 +43,22 @@ export default function Board() {
   });
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem('topics')) {
-      const trackedTopics = localStorage.getItem('topics');
-      setAllTopics(JSON.parse(trackedTopics));
-      const nodes = convertTopicsToTreeNodes(JSON.parse(trackedTopics));
+    // if (typeof window !== 'undefined' && localStorage.getItem('topics')) {
+    //   const trackedTopics = localStorage.getItem('topics');
+    //   setAllTopics(JSON.parse(trackedTopics));
+    //   const nodes = convertTopicsToTreeNodes(JSON.parse(trackedTopics));
+    //   setTreeNodes(nodes);
+    //   setSelectedTopic(JSON.parse(trackedTopics)[0]);
+    // } else {
+    fetchMqttTopics().then((res) => {
+      const topics = res.data.map((item) => item.topic);
+      setAllTopics(topics);
+      localStorage.setItem('topics', JSON.stringify(topics));
+      const nodes = convertTopicsToTreeNodes(topics);
       setTreeNodes(nodes);
-      setSelectedTopic(JSON.parse(trackedTopics)[0]);
-    } else {
-      fetchMqttTopics().then((res) => {
-        const topics = res.data.map((item) => item.topic);
-        setAllTopics(topics);
-        localStorage.setItem('topics', JSON.stringify(topics));
-        const nodes = convertTopicsToTreeNodes(topics);
-        setTreeNodes(nodes);
-        setSelectedTopic(topics[0]);
-      });
-    }
+      setSelectedTopic(topics[0]);
+    });
+    // }
   }, []);
 
   useEffect(() => {
