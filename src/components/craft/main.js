@@ -34,34 +34,70 @@ const defualtUI = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Example</title>
+    <title>MES Dashboard</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #F4F4F4; /* 背景色 */
+            margin: 0;
+            padding: 0;
+            color: #2C3E50; /* 文本色 */
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .header {
+            background-color: #C7F564; /* 主色 */
+            color: #2C3E50;
+            text-align: center;
+            padding: 1rem;
         }
-        button:hover {
-            background-color: #45a049;
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 2rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            width: 30%;
+            text-align: center;
+        }
+        .card h2 {
+            margin: 0 0 1rem 0;
+        }
+        .status {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .status.running {
+            color: #27ae60; /* 运行状态颜色 */
+        }
+        .status.stopped {
+            color: #e74c3c; /* 停止状态颜色 */
         }
     </style>
 </head>
 <body>
-    <button id="button1">Click Me</button>
+    <div class="header">
+        <h1>MES Dashboard</h1>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>Production Line 1</h2>
+            <p class="status running">Running</p>
+            <p>Output: 120 units</p>
+        </div>
+        <div class="card">
+            <h2>Production Line 2</h2>
+            <p class="status stopped">Stopped</p>
+            <p>Output: 80 units</p>
+        </div>
+        <div class="card">
+            <h2>Production Line 3</h2>
+            <p class="status running">Running</p>
+            <p>Output: 150 units</p>
+        </div>
+    </div>
 </body>
 </html>`,
 ];

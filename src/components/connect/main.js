@@ -9,7 +9,7 @@ import {
   deleteNodeRed,
   updateComponentName,
 } from '@/actions/actions';
-import { Search, ComboBox } from '@carbon/react';
+import { Search } from '@carbon/react';
 import { Filter } from '@carbon/icons-react';
 
 export default function Board() {
@@ -61,13 +61,7 @@ export default function Board() {
         />
         <div className=" flex space-x-2 items-center">
           <Filter className="w-[1.5rem] h-[1.5rem] fill-[#6F6F6F]" />
-          <ComboBox
-            size="lg"
-            onChange={() => {}}
-            placeholder="Prompt an option(s)"
-            id="carbon-combobox"
-            itemToString={(item) => (item ? item.text : '')}
-          />
+          {/* 删除了 ComboBox 组件 */}
         </div>
       </div>
       <div className="flex flex-wrap gap-x-[2rem] gap-y-[2rem] bg-white p-[2rem]">
